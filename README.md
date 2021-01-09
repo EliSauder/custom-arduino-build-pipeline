@@ -5,10 +5,9 @@ This repository contains my endeavors into removing as much of the arduino stand
 ##### Road map
 - [x] Work out how to use .c files instead of .ino files
 - [x] Find a way to interact with the microcontroller without using the standard Arduino libraries.
-- [x] Setup a build pipeline to compile and upload the avr program.
-- [x] Create an clearner, while optional way to interact with the pins (Macros to turn on, turn off, and toggle pins).
+- [x] Setup a build pipeline to compile and upload the avr program to the arduino.
+- [x] Create an clean, while optional way to interact with the pins (Macros to turn on, turn off, and toggle pins).
 - [x] Create a way to specify the Arduino Pin (as labeled on the board) and interact with the DDRS/PORTS/PINS.
-- [ ] Refactor the pinouts file into multiple files so all of the microcontrollers don't end up being in one file.
 - [ ] Add support for Analog Pins
 - [ ] Add macros for retrieving pin values
 - [ ] Add support for serial?
