@@ -4,17 +4,19 @@
 #include <avr/io.h>
 #include "util.h"
 
-#define PIN(pin) ARDUINO_DP##pin
-#define PPORT(pin) ARDUINO_DP##pin##_PORT
-#define PDDR(pin) ARDUINO_DP##pin##_DDR
-#define PPIN(pin) ARDUINO_DP##pin##_IN
+#define _PIN(pin) ARDUINO_DP##pin
+#define _PPORT(pin) ARDUINO_DP##pin##_PORT
+#define _PDDR(pin) ARDUINO_DP##pin##_DDR
+#define _PPIN(pin) ARDUINO_DP##pin##_IN
 
-#define SET_PIN(pin, highLow) highLow == HIGH ? __ENABLE_BIT(PPORT(pin), PIN(pin)) : __DISABLE_BIT(PPORT(pin), PIN(pin))
-#define TOGGLE_PIN(pin) __TOGGLE_BIT(PPORT(pin), PIN(pin))
-#define ENABLE_PIN(pin) __ENABLE_BIT(PPORT(pin), PIN(pin))
-#define DISABLE_PIN(pin) __DISABLE_BIT(PPORT(pin), PIN(pin))
+#define SET_PIN(pin, highLow) highLow == HIGH ? __ENABLE_BIT(_PPORT(pin), _PIN(pin)) : __DISABLE_BIT(_PPORT(pin), _PIN(pin))
+#define TOGGLE_PIN(pin) __TOGGLE_BIT(_PPORT(pin), _PIN(pin))
+#define ENABLE_PIN(pin) __ENABLE_BIT(_PPORT(pin), _PIN(pin))
+#define DISABLE_PIN(pin) __DISABLE_BIT(_PPORT(pin), _PIN(pin))
 
-#define SET_PIN_MODE(pin, readWrite) readWrite == WRITE ? (__ENABLE_BIT(PDDR(pin), PIN(pin))) : (__DISABLE_BIT(PDDR(pin), PIN(pin)))
+#define SET_PIN_MODE(pin, readWrite) readWrite == WRITE ? (__ENABLE_BIT(_PDDR(pin), _PIN(pin))) : (__DISABLE_BIT(_PDDR(pin), _PIN(pin)))
+
+void board_init();   
 
 #if defined __AVR_ATmega2560__
 
@@ -287,6 +289,44 @@
     #define ARDUINO_DP53_PORT PORTB
     #define ARDUINO_DP53_DDR DDRB
 	#define ARDUINO_DP53_IN PINB
+
+    void board_init() {
+	    DDRA = 0xff;
+	    DDRB = 0xff;
+	    DDRC = 0xff;
+	    DDRD = 0xff;
+	    DDRE = 0xff;
+	    DDRF = 0xff;
+	    DDRG = 0xff;
+	    DDRH = 0xff;
+	    DDRJ = 0xff;
+	    DDRK = 0xff;
+	    DDRL = 0xff;
+
+	    PORTA = 0x00;
+	    PORTB = 0x00;
+	    PORTC = 0x00;
+	    PORTD = 0x00;
+	    PORTE = 0x00;
+	    PORTF = 0x00;
+	    PORTG = 0x00;
+	    PORTH = 0x00;
+	    PORTJ = 0x00;
+	    PORTK = 0x00;
+	    PORTL = 0x00;
+
+	    DDRA = 0x00;
+	    DDRB = 0x00;
+	    DDRC = 0x00;
+	    DDRD = 0x00;
+	    DDRE = 0x00;
+	    DDRF = 0x00;
+	    DDRG = 0x00;
+	    DDRH = 0x00;
+	    DDRJ = 0x00;
+	    DDRK = 0x00;
+	    DDRL = 0x00;
+    }
 
 #endif
 
