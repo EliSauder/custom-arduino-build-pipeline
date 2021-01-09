@@ -1,13 +1,34 @@
-# Setup Instructions
+# Repository Info
+#### Description
+This repository contains my endeavors into removing as much of the arduino standard library and build pipeline as possible. Both for my dislike of the system (primarially the .ino files) as well as the speed and size additions that the Arduino library adds.
 
-## Windows
+##### Road map
+- [x] Work out how to use .c files instead of .ino files
+- [x] Find a way to interact with the microcontroller without using the standard Arduino libraries.
+- [x] Setup a build pipeline to compile and upload the avr program.
+- [x] Create an clearner, while optional way to interact with the pins (Macros to turn on, turn off, and toggle pins).
+- [x] Create a way to specify the Arduino Pin (as labeled on the board) and interact with the DDRS/PORTS/PINS.
+- [ ] Refactor the pinouts file into multiple files so all of the microcontrollers don't end up being in one file.
+- [ ] Add support for Analog Pins
+- [ ] Add macros for retrieving pin values
+- [ ] Add support for serial?
+- [ ] Add custom implementation of delay?
+
+#### Contents
+* makefile - The makefile for the project.
+* README.md - This file
+* src/main.c - A simple blink example on pin 2
+* src/pinouts.h - This contains a translation layer from the AVR chip's PORTS and PINs to the Arduino's labeled Pins. Currently the only board supported by this is the *Arduino Mega 2560*. I have also not implemented any of the analog pins yet. 
+* src/util.h - Contains some defines to use for readability and ease of use.
+
 #### Dependancies:
-
 * [Arduino IDE](https://www.arduino.cc/en/software)
 * [avrdude](https://www.nongnu.org/avrdude/) - For this tutorial we will be utilizing the built in copy of avrdude from the Arduino IDE. The reason for this is it has some custom development to support the Arduino chips properly.
 * [AVR Toolchains](https://www.microchip.com/en-us/development-tools-tools-and-software/avr-and-sam-downloads-archive#AVR%20and%20ARM%20Toolchains)
-* [GNU Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
+* [GNU Make](https://www.gnu.org/software/make/) | For Windows: [GNU Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
 
+# Setup Instructions
+## Windows
 #### Instructions:
 1. Clone this repository 
 2. Make sure you have downloaded and installed all of the dependancies. I wrote this tutorial while they were on the following versions:
@@ -47,10 +68,3 @@ Once you have located your board you can copy the following values into the make
     * Replace `__AVR_ATmega2560__` with your `DEVICE` for example: atmega328p becomes `__AVR_ATmega328P__`. 
     If you want a full list of all the defines you can find it in the `#include <avr/io.h>` header file.
     * Set `F_CPU=<Arduino Type>.build.f_cpu `
-
-# Contents
-* makefile - The makefile for the project.
-* README.md - This file
-* src/main.c - A simple blink example on pin 2
-* src/pinouts.h - This contains a translation layer from the AVR chip's PORTS and PINs to the Arduino's labeled Pins. Currently the only board supported by this is the *Arduino Mega 2560*. I have also not implemented any of the analog pins yet. 
-* src/util.h - Contains some defines to use for readability and ease of use.
