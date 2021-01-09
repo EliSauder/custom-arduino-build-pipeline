@@ -52,5 +52,5 @@ Once you have located your board you can copy the following values into the make
 * makefile - The makefile for the project.
 * README.md - This file
 * src/main.c - A simple blink example on pin 2
-* src/pinouts.h - This contains a translation layer from the AVR chip's PORTS and PINs to the Arduino's labeled Pins. Currently the only board supported by this is the *Arduino Mega 2560* 
+* src/pinouts.h - This contains a translation layer from the AVR chip's PORTS and PINs to the Arduino's labeled Pins. Currently the only board supported by this is the *Arduino Mega 2560*. I have also not implemented any of the analog pins yet. 
 * src/util.h - Contains some defines to use for readability and ease of use.
