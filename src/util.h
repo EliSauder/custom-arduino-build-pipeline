@@ -10,5 +10,4 @@
 #define __ENABLE_BIT(port, pin) port |= (HIGH << pin)
 #define __DISABLE_BIT(port, pin) port &= ~(HIGH << pin)
 #define __TOGGLE_BIT(port, pin) port ^= (HIGH << pin)
-
 #endif
