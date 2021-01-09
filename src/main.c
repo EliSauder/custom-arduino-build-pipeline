@@ -2,17 +2,21 @@
 #include <util/delay.h>
 #include "pinouts.h"
 
+#define PIN 53
+
 int main() {
 
-	SET_PIN_MODE(2, WRITE);
+	board_init();
 
-	DISABLE_PIN(2);
+	SET_PIN_MODE(PIN, WRITE);
+
+	DISABLE_PIN(PIN);
 
 	while(1) {
 
-		TOGGLE_PIN(2);
+		TOGGLE_PIN(PIN);
 
-		_delay_ms(1000);
+		_delay_ms(100);
 	}
 
 	return 0;
