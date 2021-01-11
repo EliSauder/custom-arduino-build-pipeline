@@ -21,4 +21,8 @@ void board_init();
 	#include "__AVR_ATmega2560__.h"
 #endif
 
+
+#define ENABLE_ADC __DISABLE_BIT(ADC_PRR, ADC)
+#define DISABLE_ADC __ENABLE_BIT(ADC_PRR, ADC)
+
 #endif

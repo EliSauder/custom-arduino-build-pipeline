@@ -8,7 +8,7 @@ This repository contains my endeavors into removing as much of the arduino stand
 - [x] Setup a build pipeline to compile and upload the avr program to the arduino.
 - [x] Create an clean, while optional way to interact with the pins (Macros to turn on, turn off, and toggle pins).
 - [x] Create a way to specify the Arduino Pin (as labeled on the board) and interact with the DDRS/PORTS/PINS.
-- [ ] Add support for Analog Pins
+- [ ] Add basic support for Analog Pins
 - [ ] Add macros for retrieving pin values
 - [ ] Add support for serial?
 - [ ] Add custom implementation of delay?

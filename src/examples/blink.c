@@ -1,12 +1,13 @@
 #include <avr/io.h>
 #include <util/delay.h>
-#include "pinouts.h"
 
-#define PIN 53
+#include "../pinouts/map.h"
 
-int main() {
+#define PIN 2
 
-	board_init();
+int main(void) { 
+
+    board_init();
 
 	SET_PIN_MODE(PIN, WRITE);
 
@@ -18,6 +19,4 @@ int main() {
 
 		_delay_ms(100);
 	}
-
-	return 0;
 }
