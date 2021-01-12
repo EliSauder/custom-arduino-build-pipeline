@@ -1,5 +1,7 @@
 #include <avr/io.h>
-#include "../util.h"
+#include "../util.hpp"
+
+#include "../pinouts/map.hpp"
 
 // ADMUX
 
@@ -57,29 +59,108 @@
 #define PRESCALER_64 PRESCALER(64)
 #define PRESCALER_128 PRESCALER(128)
 
+// Digital Input Disable Registers
+
+
+#define ENABLE_ADC_PIN(pin) if (pin <= 7) ADMUX |= pin;		\
+							else if (pin > 7 && pin < 15) {	\
+								ADCSRB |= (1 << MUX5);		\
+								ADMUX |= pin - 8;			\
+							}
+
+#define ADC_MODE_SINGLE 0
+#define ADC_MODE_AUTO 1
+#define ADC_MODE_FREE 2
+
+#define SET_ADC_MODE_AUTO(triggerSource) { ADCSRA |= (1 << ADATE); ADCSRB |= triggerSource; }
+#define SET_ADC_MODE_SINGLE 
+#define SET_ADC_MODE_FREE { ADCSRA |= (1 << ADATE); ADCSRB |= AUTO_TRIGGER_SOURCE_FREE; }
+
+#define LED_PIN 2
+#define ADLAR_LED_PIN 13
 
 int main() {
+
+	board_init();
+
+	DP_MODE(LED_PIN, WRITE);
+	DP_HIGH(LED_PIN);
+
+	DP_MODE(ADLAR_LED_PIN, WRITE);
+	DP_LOW(ADLAR_LED_PIN);
+
+	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
+
+	ADMUX |= (1 << ADC0D);
+
+	ADMUX |= (1 << REFS1) | (0 << REFS0);
+
+	ADCSRA |= (1 << ADATE);
+
+	//ADCSRA |= (1 << ADFR);
+
 	
-	// Enable ADC
+
+	//ADMUX |= (1 << ADLAR);
+
 	ADCSRA |= (1 << ADEN);
 
-	// Set ADC Mode (single/auto trigger/free running)
-	//ADCSRA |=(1 << )
-
-	// Set ADC prescaling to be `CPU Clcok / 128` (125 kHz)
-	// For full 10bit accuracy ADC Should be between 50kHz and 200kHz
-	// Max ADC can be 1000kHz
-	ADCSRA |= (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2);
-
-	// Reference Selection
-	ADMUX |= (0 << REFS1) | (1 << REFS0);
-
-	// Start ADC Reading
 	ADCSRA |= (1 << ADSC);
 
-	//ADC Result Registeres
-	//ADCL
-	//ADCH
+	while(1) {
+		uint16_t result = 0;
+		
+		result = ADCL;
+		result |= (ADCH << 8);
+
+		if (result >= 256) {
+			DP_HIGH(LED_PIN);
+		} else {
+			DP_LOW(LED_PIN);
+		}
+
+		if (ADMUX & (1 << ADLAR)) {
+			DP_HIGH(ADLAR_LED_PIN);
+		} else {
+			DP_LOW(ADLAR_LED_PIN);
+		}
+	}
+
+	// SET_ADC_MODE_FREE;
+
+	// // Configure ADC
+	// ADMUX |= REF_AVCC | ADJUST_LEFT;
+
+	// ADMUX |= (1 << ADC1D);
+
+	// //ENABLE_ADC_PIN(1);
+
+	// 		// Set ADC Mode (single/auto trigger/free running)
+	// 	//ADCSRA |=(1 << )
+
+	// 	// Set ADC prescaling to be `CPU Clcok / 128` (125 kHz)
+	// 	// For full 10bit accuracy ADC Should be between 50kHz and 200kHz
+	// 	// Max ADC can be 1000kHz
+	// 	ADCSRA |= (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2);
+
+	// 	// Enable ADC
+	// ADCSRA |= (1 << ADEN);
+
+	// 	// Start ADC Reading
+	// ADCSRA |= (1 << ADSC);
+
+	// while(1) {
+
+	// 	if (ADCH > 128) {
+	// 		DP_HIGH(LED_PIN);
+	// 	} else {
+	// 		DP_LOW(LED_PIN);
+	// 	}
+	// }
+
+	// //ADC Result Registeres
+	// //ADCL
+	// //ADCH
 
 	return 0;
 }

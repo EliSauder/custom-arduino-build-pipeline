@@ -11,7 +11,7 @@ PORT 		= COM3
 BAUD 		= 115200
 
 # Start Point Info
-START_POINT = src/main.c
+START_POINT = src/examples/analogExperimentation.cpp
 
 # Compiler setup
 CCOMPILER = avr-gcc

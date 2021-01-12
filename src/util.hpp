@@ -7,9 +7,12 @@
 #define WRITE 1
 #define READ 0
 
-#define __ENABLE_BIT(port, pin) port |= (HIGH << pin)
-#define __DISABLE_BIT(port, pin) port &= ~(HIGH << pin)
-#define __TOGGLE_BIT(port, pin) port ^= (HIGH << pin)
+#define PIN_TYPE_DIGITAL 0
+#define PIN_TYPE_ANALOG 1
+
+#define __BIT_HIGH(port, pin) (port |= (HIGH << pin))
+#define __BIT_LOW(port, pin) (port &= ~(HIGH << pin))
+#define __BIT_TOGGLE(port, pin) (port ^= (HIGH << pin))
 
 template<int x>
 struct log2 { 
